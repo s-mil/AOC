@@ -36,7 +36,9 @@ fn process_line(line: &str) -> u32 {
         } else {
             reduced_line.chars().next().unwrap()
         };
-    
+
+
+       
         result.to_digit(10)
     });
     let first = it.next().expect("should be a number");
@@ -47,6 +49,7 @@ fn process_line(line: &str) -> u32 {
     }
     .parse::<u32>()
     .expect("should be a valid number")
+
 }
 
 
@@ -94,8 +97,9 @@ pub fn pt2() -> Option<u32> {
 
 
     for _item in vec{
-
-       sum+= process_line(& _item);
+       let num = process_line(& _item);
+       sum+= num;
+       
 
     }
 
