@@ -34,15 +34,22 @@ fn line_to_map(line: &str) -> HashMap<&str, u32> {
 
 #[tracing::instrument]
 pub fn process(input: &str, bounds: &HashMap<&str, u32>) -> miette::Result<u32, AocError> {
-    let sum: u32 = 0;
-    let _output = input.lines().map(|line| {
+    let output = input.lines().map(|line| {
         let line_map = line_to_map(line);
-        let game_num = line_map.get_key_value("Game");
+        println!("Bounds {:?}", bounds);
+        println!("Try {:?}", line_map);
 
-
-    });
-
-    Ok(sum)
+        let flag = (line_map.get("red") <= bounds.get("red")) && (line_map.get("blue") <= bounds.get("blue")) && (line_map.get("green") <= bounds.get("green"));
+        if flag {
+            line_map.get("Game").unwrap()
+        } else {
+            let x = "0".parse::<u32>().unwrap();
+            &x
+        }
+    })
+    .sum::<u32>();
+    print!("{:?}",output);
+    Ok(output)
 }
 
 #[cfg(test)]
@@ -52,7 +59,7 @@ mod tests {
 
     #[test]
     fn test_process() -> miette::Result<()> {
-        let input = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+        let input: &str = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
         Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
         Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
         Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
