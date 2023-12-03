@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use day_02::part1::process;
 use miette::Context;
 
@@ -14,7 +16,8 @@ fn main() -> miette::Result<()> {
     tracing_subscriber::fmt::init();
 
     let file = include_str!("../../input1.txt");
-    let result = process(file).context("process part 1")?;
+    let bound: HashMap<&str, u32> = HashMap::from([("red", 12), ("green", 13), ("blue", 14)]);
+    let result = process(file, &bound).context("process part 1")?;
     println!("{}", result);
     Ok(())
 }

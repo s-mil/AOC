@@ -7,8 +7,8 @@ www-build:
    cargo +nightly leptos build --project www --release
 lint day:
     cargo clippy -p {{day}}
-test part +FLAGS='-p day-01':
-    cargo nextest run {{FLAGS}} {{part}}
+test day part :
+    cargo nextest run -p {{day}} {{part}}
 bench-all:
     cargo bench -q > benchmarks.txt
 bench day part:

@@ -13,6 +13,7 @@ tracing-subscriber = { workspace = true }
 miette = { workspace = true }
 thiserror = { workspace = true }
 dhat = { workspace = true }
+regex = "1.10.2"
 
 [dev-dependencies]
 divan = { workspace = true }
