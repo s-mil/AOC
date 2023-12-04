@@ -11,7 +11,6 @@ fn line_to_map(line: &str) -> HashMap<&str, u32> {
 
     //Handle Game
     let game: Vec<&str> = game_str.remove(0).split(' ').collect();
-    println!("{:?}", game);
     result.insert(game[0].trim(), game[1].trim().parse::<u32>().unwrap());
 
     // Handle rounds
@@ -24,7 +23,6 @@ fn line_to_map(line: &str) -> HashMap<&str, u32> {
             result.insert(key.trim(), value);
         } else if result.get(key).unwrap() < &value {
             *result.get_mut(key).unwrap() = value;
-            println!("{:?} {:?}", result.get(key).unwrap(), value);
         }
     }
 

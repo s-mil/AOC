@@ -1,4 +1,5 @@
 use day_02::*;
+use std::collections::HashMap;
 
 fn main() {
     // Run registered benchmarks.
@@ -7,9 +8,8 @@ fn main() {
 
 #[divan::bench]
 fn part1() {
-    part1::process(divan::black_box(include_str!(
-        "../input1.txt",
-    )))
+    let bound: HashMap<&str, u32> = HashMap::from([("red", 12), ("green", 13), ("blue", 14)]);
+    part1::process(divan::black_box(include_str!("../input1.txt",),),divan::black_box(&bound))
     .unwrap();
 }
 
