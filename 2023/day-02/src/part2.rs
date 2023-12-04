@@ -13,7 +13,6 @@ fn line_to_map(line: &str) -> HashMap<&str, u32> {
     let game: Vec<&str> = game_str.remove(0).split(' ').collect();
     result.insert(game[0].trim(), game[1].trim().parse::<u32>().unwrap());
 
-
     // Handle rounds
     for item in line_vec {
         let inner_item = item.trim().split(' ').collect_vec();
@@ -22,8 +21,7 @@ fn line_to_map(line: &str) -> HashMap<&str, u32> {
 
         if result.get(key).is_none() {
             result.insert(key.trim(), value);
-        }
-        else if result.get(key).unwrap() < &value {
+        } else if result.get(key).unwrap() < &value {
             *result.get_mut(key).unwrap() = value;
         }
     }
@@ -33,13 +31,17 @@ fn line_to_map(line: &str) -> HashMap<&str, u32> {
 
 #[tracing::instrument]
 pub fn process(input: &str) -> miette::Result<u32, AocError> {
-    let output = input.lines().map(|line| {
-        let line_map = line_to_map(line);
+    let output = input
+        .lines()
+        .map(|line| {
+            let line_map = line_to_map(line);
 
-        let power = line_map.get("red").unwrap() * line_map.get("blue").unwrap() * line_map.get("green").unwrap();
-        power
-    })
-    .sum::<u32>();
+            let power = line_map.get("red").unwrap()
+                * line_map.get("blue").unwrap()
+                * line_map.get("green").unwrap();
+            power
+        })
+        .sum::<u32>();
     Ok(output)
 }
 
@@ -56,7 +58,6 @@ Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
 Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 
-
         assert_eq!(2286, process(input)?);
         Ok(())
     }
@@ -68,7 +69,7 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
         let expected: HashMap<&str, u32> =
             HashMap::from([("Game", 1), ("blue", 6), ("red", 4), ("green", 2)]);
 
-        for key in output.keys(){
+        for key in output.keys() {
             assert_eq!(output.get(key), expected.get(key))
         }
 

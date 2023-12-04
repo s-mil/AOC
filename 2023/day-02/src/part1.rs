@@ -14,7 +14,6 @@ fn line_to_map(line: &str) -> HashMap<&str, u32> {
     println!("{:?}", game);
     result.insert(game[0].trim(), game[1].trim().parse::<u32>().unwrap());
 
-
     // Handle rounds
     for item in line_vec {
         let inner_item = item.trim().split(' ').collect_vec();
@@ -23,10 +22,9 @@ fn line_to_map(line: &str) -> HashMap<&str, u32> {
 
         if result.get(key).is_none() {
             result.insert(key.trim(), value);
-        }
-        else if result.get(key).unwrap() < &value {
+        } else if result.get(key).unwrap() < &value {
             *result.get_mut(key).unwrap() = value;
-            println!("{:?} {:?}",result.get(key).unwrap(), value);
+            println!("{:?} {:?}", result.get(key).unwrap(), value);
         }
     }
 
@@ -35,18 +33,21 @@ fn line_to_map(line: &str) -> HashMap<&str, u32> {
 
 #[tracing::instrument]
 pub fn process(input: &str, bounds: &HashMap<&str, u32>) -> miette::Result<u32, AocError> {
-    let output = input.lines().map(|line| {
-        let line_map = line_to_map(line);
+    let output = input
+        .lines()
+        .map(|line| {
+            let line_map = line_to_map(line);
 
-        let flag = (line_map.get("red") <= bounds.get("red")) && (line_map.get("blue") <= bounds.get("blue")) && (line_map.get("green") <= bounds.get("green"));
-        if flag {
-            *line_map.get("Game").unwrap()
-        } else {
-            let x = "0".parse::<u32>().unwrap();
-            x
-        }
-    })
-    .sum::<u32>();
+            let flag = (line_map.get("red") <= bounds.get("red"))
+                && (line_map.get("blue") <= bounds.get("blue"))
+                && (line_map.get("green") <= bounds.get("green"));
+            if flag {
+                *line_map.get("Game").unwrap()
+            } else {
+                0
+            }
+        })
+        .sum::<u32>();
     Ok(output)
 }
 
@@ -76,7 +77,7 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
         let expected: HashMap<&str, u32> =
             HashMap::from([("Game", 1), ("blue", 6), ("red", 4), ("green", 2)]);
 
-        for key in output.keys(){
+        for key in output.keys() {
             assert_eq!(output.get(key), expected.get(key))
         }
 
