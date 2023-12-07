@@ -1,10 +1,25 @@
 use crate::custom_error::AocError;
 
+fn get_matches(card: &str) -> u32 {
+    let clean_card: &str = card.split(':').last().unwrap().trim();
+    let winning_numbers: Vec<u32> = clean_card.split('|').last().unwrap().split(' ').collect::vec<&str>().parse::<u32>().collect();
+    let play_numbers: Vec<u32> = clean_card.split('|').collect().first() ;
+
+    2
+}
+
 #[tracing::instrument]
 pub fn process(
     _input: &str,
 ) -> miette::Result<String, AocError> {
-    todo!("day - part 1");
+    let base: u32 = 2;
+    let output: String = _input
+    .lines()
+    .map(|line|
+      base.pow(get_matches(line))
+    )
+    .sum::<u32>().to_string();
+    Ok(output)
 }
 
 #[cfg(test)]

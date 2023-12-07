@@ -1,10 +1,10 @@
 use crate::custom_error::AocError;
 
 #[tracing::instrument]
-pub fn process(
-    _input: &str,
-) -> miette::Result<u32, AocError> {
-    todo!("day - part 1");
+pub fn process(_input: &str,) -> miette::Result<u32, AocError> {
+    let : u32 = _input
+        .lines()
+        .map
 }
 
 #[cfg(test)]
