@@ -2,23 +2,49 @@ use crate::custom_error::AocError;
 
 fn get_matches(card: &str) -> u32 {
     let clean_card: &str = card.split(':').last().unwrap().trim();
-    let winning_numbers: Vec<u32> = clean_card.split('|').last().unwrap().split(' ').collect::vec<&str>().parse::<u32>().collect();
-    let play_numbers: Vec<u32> = clean_card.split('|').collect().first() ;
+    println!("{}", clean_card);
+    let winning_numbers: Vec<u32> = clean_card
+        .split('|')
+        .last()
+        .unwrap()
+        .split(' ')
+        .collect::<Vec<&str>>()
+        .into_iter()
+        .map(|x| -> u32 { x.parse().unwrap() })
+        .collect();
 
-    2
+    println!("{:?}", winning_numbers);
+
+    let play_numbers: Vec<u32> = clean_card
+        .split('|')
+        .collect::<Vec<&str>>()
+        .first()
+        .unwrap()
+        .split(' ')
+        .collect::<Vec<&str>>()
+        .into_iter()
+        .map(|x| -> u32 { x.parse().unwrap() })
+        .collect();
+
+    println!("{:?}", play_numbers);
+
+    winning_numbers
+        .iter()
+        .zip(&play_numbers)
+        .filter(|&(winning_numbers, play_numbers)| winning_numbers == play_numbers)
+        .count()
+        .try_into()
+        .unwrap()
 }
 
 #[tracing::instrument]
-pub fn process(
-    _input: &str,
-) -> miette::Result<String, AocError> {
+pub fn process(_input: &str) -> miette::Result<String, AocError> {
     let base: u32 = 2;
     let output: String = _input
-    .lines()
-    .map(|line|
-      base.pow(get_matches(line))
-    )
-    .sum::<u32>().to_string();
+        .lines()
+        .map(|line| base.pow(get_matches(line)))
+        .sum::<u32>()
+        .to_string();
     Ok(output)
 }
 
