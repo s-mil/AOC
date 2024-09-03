@@ -1,3 +1,6 @@
 {
-  "editor.defaultFormatter": "trunk.io"
+  "editor.defaultFormatter": "trunk.io",
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  }
 }
