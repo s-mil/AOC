@@ -2,5 +2,14 @@
   "editor.defaultFormatter": "trunk.io",
   "[go]": {
     "editor.defaultFormatter": "golang.go"
-  }
+  },
+  "python.testing.unittestArgs": [
+    "-v",
+    "-s",
+    "./2020",
+    "-p",
+    "*_test.py"
+  ],
+  "python.testing.pytestEnabled": false,
+  "python.testing.unittestEnabled": true
 }

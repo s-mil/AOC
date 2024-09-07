@@ -16,11 +16,14 @@
 
     devShells."x86_64-linux".default = pkgs.mkShell {
 
-      packages = [ pkgs.go pkgs.python312 pkgs.dotnetCorePackages.aspnetcore_8_0_3xx ];
+      packages = [ 
+        pkgs.go 
+        pkgs.python312 
+        pkgs.black
+        pkgs.dotnetCorePackages.sdk_8_0 ];
 
       inputsFrom = [ pkgs.bat ];
       
     };
   };
 }
-
