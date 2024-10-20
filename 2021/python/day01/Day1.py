@@ -16,7 +16,6 @@ class Day1:
     def part2(items: list[int]) -> int:
         previous_item = items[0] + items[1] + items[2]
         increasing_item_count = 0
-        for item
         
         return increasing_item_count
 
